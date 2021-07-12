@@ -20,6 +20,26 @@ jobs:
     - name: Run VSTest
       id: run_vstest
       run: vstest.console.exe .\HelloWorld\obj\Debug\HelloWorld.dll /Platform:x64      
+      
+    - uses: nuget/setup-nuget@v1
+    - uses: microsoft/setup-msbuild@v1
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 50
+    - uses: testspace-com/setup-testspace@v1
+      with:
+        domain: samples 
+    - name: Build
+      run: |
+        nuget restore HelloWorld.sln
+        msbuild HelloWorld/HelloWorld.csproj /p:Configuration=Debug /p:runCodeAnalysis=true /p:codeanalysislogfile=..\analysis.xml
+    - name: Test
+      run: |
+        .\HelloWorld\packages\OpenCover.4.6.519\tools\OpenCover.Console -target:".\HelloWorld\packages\NUnit.ConsoleRunner.3.4.1\tools\nunit3-console.exe" -targetargs:"HelloWorld\bin\Debug\HelloWorld.dll" -output:"coverage.xml" -filter:"+[*]* -[*]*MoneyTest*" -register:user
+    - name: Push
+      run: |
+        testspace analysis.xml [Tests]TestResult.xml coverage.xml
+      if: always()  
   tests:
     name: Unit Testing
     runs-on: windows-latest
