@@ -7,9 +7,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    #- name: Setup MSBuild.exe
-      #uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
 
-    - name: MSBuild
-      working-directory: HelloWorld
-      run: msbuild HelloWorld.csproj
+   # - name: MSBuild
+    #  working-directory: HelloWorld
+     # run: msbuild HelloWorld.csproj
