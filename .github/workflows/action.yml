@@ -11,6 +11,6 @@ jobs:
       
       uses: microsoft/setup-msbuild@v1
 
-   # - name: MSBuild
-    #  working-directory: HelloWorld
-     # run: msbuild HelloWorld.csproj
+    - name: MSBuild
+      working-directory: HelloWorld
+      run: msbuild HelloWorld.csproj
