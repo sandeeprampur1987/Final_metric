@@ -13,10 +13,10 @@ jobs:
 
     - name: MSBuild
       working-directory: HelloWorld
-      run: msbuild HelloWorld.csproj
-      
-    - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1
-      if: always()
-      with:
-        files: target/surefire-reports/*.xml      
+      run: msbuild HelloWorld.csproj      
+  tests:
+    name: Unit Testing
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2.1.0
+      - run: dotnet test
