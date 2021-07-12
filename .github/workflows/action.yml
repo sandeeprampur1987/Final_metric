@@ -21,11 +21,11 @@ jobs:
       id: run_vstest
       run: vstest.console.exe .\HelloWorld\obj\Debug\HelloWorld.dll /Platform:x64      
       
-    - uses: MirrorNG/nunit-reporter@v1.0.9
-      if: always()
-      with:
-        path: Tests/*.xml
-        access-token: ${{ secrets.GIT_TOKEN }}      
+    #- uses: MirrorNG/nunit-reporter@v1.0.9
+      #if: always()
+      #with:
+        #path: Tests/*.xml
+        #access-token: ${{ secrets.GIT_TOKEN }}      
     #- uses: nuget/setup-nuget@v1
     #- uses: microsoft/setup-msbuild@v1
     #- uses: actions/checkout@v2
