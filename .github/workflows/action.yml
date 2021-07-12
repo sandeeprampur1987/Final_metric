@@ -14,3 +14,8 @@ jobs:
     - name: MSBuild
       working-directory: HelloWorld
       run: msbuild HelloWorld.csproj
+      
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+        generate-branches-badge: true      
