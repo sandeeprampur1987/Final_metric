@@ -43,7 +43,7 @@ jobs:
         #.\HelloWorld\packages\OpenCover.4.6.519\tools\OpenCover.Console -target:".\HelloWorld\packages\NUnit.ConsoleRunner.3.4.1\tools\nunit3-console.exe" -targetargs:"HelloWorld\bin\Debug\HelloWorld.dll" -output:"coverage.xml" -filter:"+[*]* -[*]*MoneyTest*" -register:user
     #- name: Push
       #run: |
-       # HelloWorldDotNet analysis.xml [Tests]TestResult.xml coverage.xml
+       ## HelloWorldDotNet analysis.xml [Tests]TestResult.xml coverage.xml
       #if: always()  
   tests:
     name: Unit Testing
