@@ -13,7 +13,7 @@ jobs:
        #{ curl https://api.github.com/repos/miteshNeema/MavenDemo/issues | jq '.[] | {Issue Opened By: .user.login, Issue Date: .created_at, Issue Number: .id,Issue Title: .title,Issue Status: .state}'\ &&
        #curl -X GET https://api.github.com/repos/miteshNeema/MavenDemo/issues | jq -r '{Reponame: .name, Branch: .default_branch}';} >> "./output.json"
        #curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}'  >> "./output.json"
-       curl https://api.github.com/repos/miteshNeema/MavenDemo/issues | jq '.[] | {Issue Opened By: .user.login, Issue Date: .created_at, Issue Number: .id,Issue Title: .title,Issue Status: .state}' >> "./output.json" 
+       curl https://api.github.com/repos/miteshNeema/MavenDemo/issues | jq '.[] | {Issue Opened By: .user.login, Issue Date: .created_at, Issue Number: .id, Issue Title: .title, Issue Status: .state}' >> "./output.json" 
     - name: Upload a Test Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
