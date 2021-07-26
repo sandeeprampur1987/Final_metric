@@ -12,7 +12,7 @@ jobs:
       run: |       
        curl https://api.github.com/repos/miteshNeema/MavenDemo/issues | jq '.[] | {Issuetitle: .title, Issuestate: .state, Id: .id, IssueOpenedBy: .user.login, (Issued Date): .created_at}' 
        
-    - name: Upload a Test Artifact
+    - name: Upload a Test Artifactt
       uses: actions/upload-artifact@v2.2.4
       with:
       # Artifact name
