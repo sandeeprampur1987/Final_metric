@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: curl
       run: |       
-       curl https://api.github.com/repos/miteshNeema/MavenDemo/issues | jq -r '{Issue Opened By: .title}' #>> "./output.json" 
+       curl https://api.github.com/repos/miteshNeema/MavenDemo/issues | jq -r '{title: .title}' 
        
     - name: Upload a Test Artifact
       uses: actions/upload-artifact@v2.2.4
