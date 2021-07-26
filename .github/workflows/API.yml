@@ -1,0 +1,22 @@
+name: ASP.NET CII
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+    - name: curl
+      run: |
+       { curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commitid: .sha, Date: .commit.author.date, Commitauthor: .commit.author.name}'\ &&
+       curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}';} >> "./output.json"
+       #curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}'  >> "./output.json"
+
+    - name: Upload a Test Artifact
+      uses: actions/upload-artifact@v2.2.4
+      with:
+      # Artifact name
+        name: artifact
+        path: ./output.json
