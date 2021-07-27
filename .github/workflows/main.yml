@@ -1,0 +1,24 @@
+name: COMMITS API
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+    - name: curl
+      run: |
+       { curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name, Reponame: "javaapp"}'\ &&
+       curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}';} >> "./output.json"
+       #curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}'  >> "./output.json"
+       #{ output=$ curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}'\ &&
+       #curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name}';} >> "./output.json"
+
+    - name: Upload a Test Artifact
+      uses: actions/upload-artifact@v2.2.4
+      with:
+      # Artifact name
+        name: artifact
+        path: ./output.json
