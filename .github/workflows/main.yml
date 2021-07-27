@@ -10,12 +10,15 @@ jobs:
     steps:
     - name: curl
       run: |
-       { curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name, Reponame: "javaapp"}'\ &&
-       curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}';} >> "./output.json"
+       #{ curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name, Reponame: "javaapp"}'\ &&
+       #curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}';} >> "./output.json"
        #curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}'  >> "./output.json"
        #{ output=$ curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}'\ &&
        #curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name}';} >> "./output.json"
-
+       curl \
+       -H "Accept: application/vnd.github.v3+json" \
+       https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits
+        
     - name: Upload a Test Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
