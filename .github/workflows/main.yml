@@ -18,7 +18,10 @@ jobs:
        #curl \
        #-H "Accept: application/vnd.github.v3+json" \
        #https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits
-        
+       echo "TAG_NAME=$(curl \
+       -H "Accept: application/vnd.github.v3+json" \
+       https://api.github.com/repos/mangeshpa/HelloWorldDotNet/stats/participation | jq '.["all"] | add')" 
+       echo "$TAG_NAME" 
     - name: Upload a Test Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
