@@ -1,4 +1,4 @@
-name: COMMITS API11
+name: test
 
 on:
   push:
@@ -8,7 +8,7 @@ jobs:
   curl:
     runs-on: ubuntu-latest
     steps:
-    - name: curl1
+    - name: curl
       run: |
        { curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name, Reponame: "javaapp"}'\ &&
        curl -X GET https://api.github.com/repos/mangeshpa/HelloWorldDotNet | jq -r '{Reponame: .name, Branch: .default_branch}';} >> "./output.json"
