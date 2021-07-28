@@ -13,7 +13,7 @@ jobs:
        #curl https://api.github.com/repos/miteshNeema/MavenDemo/pulls?state=open | jq '.[] | {Pull_Request_Number: .number, Repository: .url, Creation_Date: .created_at, Pull_Request_Status: .state, Reviewers: .requested_reviewers, Approvers: .assignees}' >> "./output.json"
        curl \
        -H "Accept: application/vnd.github.v3+json" \
-       https://api.github.com/repos/mangeshpa/HelloWorldDotNet/stats/participation | jq '.[]'
+       https://api.github.com/repos/mangeshpa/HelloWorldDotNet/stats/participation | jq '.[] | [.all]'
        
     - name: Upload a Test Artifact
       uses: actions/upload-artifact@v2.2.4
