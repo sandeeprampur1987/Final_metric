@@ -1,4 +1,5 @@
-name: API FOR PULL REQUEST
+name: PULL REQUEST API
+
 on:
   push:
     branches: [ master ]
