@@ -28,3 +28,14 @@ jobs:
       # Artifact name
         name: artifact
         path: ./output.json
+    - uses: actions/checkout@v1
+
+    - run: mkdir -p path/to/artifact
+
+    - run: echo hello > path/to/artifact/world.txt
+
+    - uses: fixpoint/azblob-upload-artifact@v4
+      with:
+       connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+       name: artifact
+       path: ./output.json
