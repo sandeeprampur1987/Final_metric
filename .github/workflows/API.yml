@@ -27,6 +27,12 @@ jobs:
       name: Azure Portal Login
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: azure/sql-action@v1
+      name: Azure SQL DB Login
+      with:
+        server-name: githubactions.database.windows.net
+        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING1 }}
+        dacpac-package: './Database.dacpac' 
 #     - run: |
 #         cd /home/runner/work/sample-java-project/sample-java-project/
 #         ls -ltr
@@ -37,12 +43,6 @@ jobs:
        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
        name: Blob
        path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/commit.json'
-    - uses: azure/sql-action@v1
-      name: Azure SQL DB Login
-      with:
-        server-name: githubactions.database.windows.net
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING1 }}
-        dacpac-package: 'https://github.com/pulipativedanth/HelloWorldDotNet/Database.dacpac' 
     - uses: azure/sql-action@v1
       name: SQL Insert Query to Export Data from JSON 
       with:
