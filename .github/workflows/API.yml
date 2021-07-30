@@ -10,11 +10,30 @@ jobs:
     steps:
     - name: curl
       run: |       
-       curl https://api.github.com/repos/miteshNeema/MavenDemo/issues | jq '.[] | {Issue_title: .title, Issue_state: .state, Issue_Number: .id, Issue_Opened_By: .user.login, Issued_Date: .created_at}' >> "./output.json"
+       curl https://api.github.com/repos/miteshNeema/MavenDemo/issues | jq '.[] | {Issue_title: .title, Issue_state: .state, Issue_Number: .id, Issue_Opened_By: .user.login, Issued_Date: .created_at}' >> "./commit.json"
        
     - name: Upload a Test Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
       # Artifact name
         name: artifact
-        path: ./output.json
+        path: ./commit.json
+    - name: Download a single artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: artifact
+        path : './commit.json'
+    - uses: azure/login@v1
+      name: Azure Portal Login
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - run: |
+        cd /home/runner/work/sample-java-project/sample-java-project/
+        ls -ltr
+        echo "After "
+    - uses: fixpoint/azblob-upload-artifact@v4
+      name: Upload Artifact to Blob Storage
+      with:
+       connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+       name: Blob
+       path: '/home/runner/work/sample-java-project/sample-java-project/commit.json'
