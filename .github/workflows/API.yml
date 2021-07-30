@@ -32,7 +32,7 @@ jobs:
       with:
         server-name: githubactions.database.windows.net
         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING1 }}
-        dacpac-package: './Database.dacpac' 
+        dacpac-package: 'https://github.com/pulipativedanth/HelloWorldDotNet/Database.dacpac' 
 #     - run: |
 #         cd /home/runner/work/sample-java-project/sample-java-project/
 #         ls -ltr
