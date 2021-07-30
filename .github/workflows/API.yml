@@ -29,12 +29,12 @@ jobs:
       name: Azure Portal Login
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-#     - uses: azure/sql-action@v1
-#       name: Azure SQL DB Login
-#       with:
-#         server-name: githubactions.database.windows.net
-#         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-#         dacpac-package: './Database.dacpac' 
+    - uses: azure/sql-action@v1
+      name: Azure SQL DB Login
+      with:
+        server-name: githubactions.database.windows.net
+        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+        dacpac-package: './SQLGitHub.dacpac' 
 #     - run: |
 #         cd /home/runner/work/sample-java-project/sample-java-project/
 #         ls -ltr
