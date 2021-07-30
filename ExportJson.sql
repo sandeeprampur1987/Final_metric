@@ -7,7 +7,7 @@ SELECT Issue_title,Issue_state, Issue_Number,Issue_Opened_By,Issued_Date FROM OP
      ) AS DataFile
  CROSS APPLY OPENJSON(BulkColumn)
  WITH (Issue_title NCHAR(50),Issue_state NCHAR(50), Issue_Number NCHAR(50),Issue_Opened_By NCHAR(50),Issued_Date NCHAR(50)) as book
-INSERT INTO books with (TABLOCK) (Issue_title,Issue_state,Issue_Number,Issue_Opened_By,Issued_Date)
+INSERT INTO Issues with (TABLOCK) (Issue_title,Issue_state,Issue_Number,Issue_Opened_By,Issued_Date)
  SELECT Issue_title,Issue_state,Issue_Number,Issue_Opened_By,Issued_Date FROM OPENROWSET(
     BULK  'Blob/outputFinal2.json',
     DATA_SOURCE = 'MyAzureBlobStorage25',
