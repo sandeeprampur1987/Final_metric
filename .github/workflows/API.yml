@@ -32,7 +32,7 @@ jobs:
       with:
         server-name: githubactions.database.windows.net
         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING1 }}
-        dacpac-package: 'https://github.com/pulipativedanth/HelloWorldDotNet/Database.dacpac' 
+        dacpac-package: './Database.dacpac' 
 #     - run: |
 #         cd /home/runner/work/sample-java-project/sample-java-project/
 #         ls -ltr
@@ -48,4 +48,4 @@ jobs:
       with:
         server-name: githubactions.database.windows.net
         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING1 }}
-        sql-file: 'https://github.com/pulipativedanth/HelloWorldDotNet/ExportJson.sql'
+        sql-file: './ExportJson.sql'
