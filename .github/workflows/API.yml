@@ -19,7 +19,7 @@ jobs:
       with:
       # Artifact name
         name: artifact
-        path: outputFinal2
+        path: ./outputFinal.json
 #     - name: Download a single artifact
 #       uses: actions/download-artifact@v2
 #       with:
@@ -44,7 +44,7 @@ jobs:
       with:
        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
        name: Blob
-       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/commit.json'
+       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/outputFinal.json'
 #     - uses: azure/sql-action@v1
 #       name: SQL Insert Query to Export Data from JSON 
 #       with:
