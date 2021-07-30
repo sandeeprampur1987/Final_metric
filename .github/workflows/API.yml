@@ -18,11 +18,11 @@ jobs:
       # Artifact name
         name: artifact
         path: ./commit.json
-    - name: Download a single artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: artifact
-        path : './commit1.json'
+#     - name: Download a single artifact
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: artifact
+#         path : './commit1.json'
     - uses: azure/login@v1
       name: Azure Portal Login
       with:
@@ -36,4 +36,4 @@ jobs:
       with:
        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
        name: Blob
-       path: '/home/runner/work/sample-java-project/sample-java-project/commit.json'
+       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/commit.json'
