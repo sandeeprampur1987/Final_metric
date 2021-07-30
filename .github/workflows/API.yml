@@ -27,10 +27,10 @@ jobs:
       name: Azure Portal Login
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - run: |
-        cd /home/runner/work/sample-java-project/sample-java-project/
-        ls -ltr
-        echo "After "
+#     - run: |
+#         cd /home/runner/work/sample-java-project/sample-java-project/
+#         ls -ltr
+#         echo "After "
     - uses: fixpoint/azblob-upload-artifact@v4
       name: Upload Artifact to Blob Storage
       with:
