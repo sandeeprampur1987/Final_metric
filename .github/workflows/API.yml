@@ -22,7 +22,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: artifact
-        path : './commit.json'
+        path : './commit1.json'
     - uses: azure/login@v1
       name: Azure Portal Login
       with:
