@@ -31,7 +31,7 @@ jobs:
       name: Azure SQL DB Login
       with:
         server-name: githubactions.database.windows.net
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING1 }}
+        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
         dacpac-package: './Database.dacpac' 
 #     - run: |
 #         cd /home/runner/work/sample-java-project/sample-java-project/
@@ -47,5 +47,5 @@ jobs:
       name: SQL Insert Query to Export Data from JSON 
       with:
         server-name: githubactions.database.windows.net
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING1 }}
+        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
         sql-file: './ExportJson.sql'
