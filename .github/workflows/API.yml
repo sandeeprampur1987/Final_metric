@@ -22,19 +22,32 @@ jobs:
        sed 's/}/},/g' ./output1.json >> "./outputFinal1.json"
        sed '$ s/.$//' ./outputFinal1.json >> "./outputFinal3.json"
        sed -i '$ a\'"]" ./outputFinal3.json
-       
-    - name: Upload a Test Artifact
+    - name: API for Commit Request
+      run: |
+        curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name}' >> "./Commits.json"
+        sed -i '1i [' ./Commits.json
+        sed 's/}/},/g' ./Commits.json >> "./CommitFinal.json"
+        sed '$ s/.$//' ./CommitFinal.json >> "./CommitFinal2.json"
+        sed -i '$ a\'"]" ./CommitFinal2.json
+        
+    - name: Upload a Test Artifact for Issue Request
       uses: actions/upload-artifact@v2.2.4
       with:
       # Artifact name
         name: artifact
         path: ./outputFinal2.json
-    - name: Upload a Test Artifact
+    - name: Upload a Test Artifact for Pull Request
       uses: actions/upload-artifact@v2.2.4
       with:
       # Artifact name
         name: artifact
         path: ./outputFinal3.json
+    - name: Upload a Test Artifact for Commit Request
+      uses: actions/upload-artifact@v2.2.4
+      with:
+      # Artifact name
+        name: artifact
+        path: ./CommitFinal3.json
 #     - name: Download a single artifact
 #       uses: actions/download-artifact@v2
 #       with:
