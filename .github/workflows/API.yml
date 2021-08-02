@@ -24,7 +24,7 @@ jobs:
        sed -i '$ a\'"]" ./Pullrequests_Final.json
     - name: API for Commit Request
       run: |
-        curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name,Reponame: .name, Branch: .default_branch }' >> "./Commits.json"
+        curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits/master | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name,Reponame: .name, Branch: .default_branch }' >> "./Commits.json"
         sed -i '1i [' ./Commits.json
         sed 's/}/},/g' ./Commits.json >> "./CommitFinal.json"
         sed '$ s/.$//' ./CommitFinal.json >> "./Commits_Final.json"
@@ -68,17 +68,23 @@ jobs:
 #         ls -ltr
 #         echo "After "
     - uses: fixpoint/azblob-upload-artifact@v4
-      name: Upload Artifact to Blob Storage
+      name: Upload Issues JSON File to Blob Storage
       with:
        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
        name: Blob
-       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/./outputFinal2.json'
+       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/Issues_Final.json'
+    - uses: fixpoint/azblob-upload-artifact@v4
+      name: Upload Pull Request JSON File  to Blob Storage
+      with:
+       connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+       name: Blob
+       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/Pullrequests_Final.json'
     - uses: fixpoint/azblob-upload-artifact@v4
       name: Upload Artifact to Blob Storage
       with:
        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
        name: Blob
-       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/./outputFinal3.json'
+       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/Commits_Final.json'
 #     - uses: Azure/sql-action@v1
 #       name: SQL Insert Query to Export Data from JSON 
 #       with:
