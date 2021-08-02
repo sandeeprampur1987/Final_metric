@@ -118,8 +118,14 @@ jobs:
 #         sql-file: './query.sql'
 #         arguments: "-v ColValue1 = '${{ github.event.repository.name }}' ColValue2='${{ github.ref }}' ColValue3= '${{ github.event.after }}' ColValue4 ='${{github.event.effectieve_date}}' ColValue5 ='${{ github.actor}}'"  
     - uses: azure/sql-action@v1
-      name: SQL Insert Query to Export Data from JSON 
+      name: SQL Issue JSON Data Query
       with:
         server-name: githubactions.database.windows.net
         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
         sql-file: './ExportJson.sql'
+    - uses: azure/sql-action@v1
+      name: SQL Pull Request JSON Data Query 
+      with:
+        server-name: githubactions.database.windows.net
+        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+        sql-file: './Pullrequests.sql'
