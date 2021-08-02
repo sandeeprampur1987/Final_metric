@@ -24,7 +24,7 @@ jobs:
        sed -i '$ a\'"]" ./Pullrequests_Final.json
     - name: API for Commit Request
       run: |
-        curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name}' >> "./Commits.json"
+        curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name,Repository_Name:.github.event.repository.name }' >> "./Commits.json"
         sed -i '1i [' ./Commits.json
         sed 's/}/},/g' ./Commits.json >> "./CommitFinal.json"
         sed '$ s/.$//' ./CommitFinal.json >> "./Commits_Final.json"
