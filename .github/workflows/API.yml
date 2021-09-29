@@ -3,122 +3,16 @@ name: Repository Details
 on:
   push:
     branches: [ master ]
-jobs:
-
-  curl:
-    runs-on: ubuntu-latest
-    steps:
-    - name: curl
-      run: |       
-       curl https://api.github.com/repos/mangeshpa/JestReport/issues | jq '.[] | {Issue_title: .title, Issue_state: .state, Issue_Number: .id, Issue_Opened_By: .user.login, Issued_Date: .created_at}' >> "./Issues.json"
-       sed -i '1i [' ./Issues.json
-       sed 's/}/},/g' ./Issues.json >> "./IssuesFinal.json"
-       sed '$ s/.$//' ./IssuesFinal.json >> "./Issues_Final.json"
-       sed -i '$ a\'"]" ./Issues_Final.json
-    - name: API FOR PULL REQUEST
-      run: |
-       curl https://api.github.com/repos/mangeshpa/JestReport/pulls | jq '.[] | {CreatedBy: .user.login, SourceBranch: .head.ref, DestinationBranch: .base.ref, Pull_Request_Number: .number, Repository: .url, Creation_Date: .created_at, Pull_Request_Status: .state, Reviewers: .requested_reviewers[].login, Approvers: .assignee.login}' >> "./Pullrequests.json"
-       sed  -i '1i [' ./Pullrequests.json
-       sed 's/}/},/g' ./Pullrequests.json >> "./PullrequestsFinal.json"
-       sed '$ s/.$//' ./PullrequestsFinal.json >> "./Pullrequests_Final.json"
-       sed -i '$ a\'"]" ./Pullrequests_Final.json
-    - name: API for Commit Request
-      run: |
-        curl https://api.github.com/repos/mangeshpa/HelloWorldDotNet/commits | jq '.[] | {Commit_id: .sha, Commit_Date: .commit.author.date, Commit_Author: .commit.author.name}' >> "./Commits.json"
-        sed -i '1i [' ./Commits.json
-        sed 's/}/},/g' ./Commits.json >> "./CommitFinal.json"
-        sed '$ s/.$//' ./CommitFinal.json >> "./Commits_Final.json"
-        sed -i '$ a\'"]" ./Commits_Final.json
-        
-    - name: Upload a Test Artifact for Issue Request
-      uses: actions/upload-artifact@v2.2.4
-      with:
-      # Artifact name
-        name: artifact
-        path: ./Issues_Final.json
-    - name: Upload a Test Artifact for Pull Request
-      uses: actions/upload-artifact@v2.2.4
-      with:
-      # Artifact name
-        name: artifact
-        path: ./Pullrequests_Final.json
-    - name: Upload a Test Artifact for Commit Request
-      uses: actions/upload-artifact@v2.2.4
-      with:
-      # Artifact name
-        name: artifact
-        path: ./Commits_Final.json
-    - name: Upload a Test Artifact for Build Request
-      uses: actions/upload-artifact@v2.2.4
-      with:
-      # Artifact name
-        name: artifact
-        path: ./Build_Final.json
-    - uses: azure/login@v1
-      name: Azure Portal Login
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - uses: fixpoint/azblob-upload-artifact@v4
-      name: Upload Issues JSON File to Blob Storage
-      with:
-       connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-       name: Blob
-       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/Issues_Final.json'
-    - uses: fixpoint/azblob-upload-artifact@v4
-      name: Upload Pull Request JSON File  to Blob Storage
-      with:
-       connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-       name: Blob
-       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/Pullrequests_Final.json'
-    - uses: fixpoint/azblob-upload-artifact@v4
-      name: Upload Artifact to Blob Storage
-      with:
-       connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-       name: Blob
-       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/Commits_Final.json'
-    - uses: fixpoint/azblob-upload-artifact@v4
-      name: Upload Artifact to Blob Storage
-      with:
-       connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-       name: Blob
-       path: '/home/runner/work/HelloWorldDotNet/HelloWorldDotNet/Build_Final.json'
-
+jobs:  
   build:
     runs-on: windows-latest
     steps:
    
     - uses: actions/checkout@v1
-    - uses: azure/login@v1
-      name: Azure Portal Login
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - uses: azure/sql-action@v1
-      name: Azure SQL DB Login
-      with:
-        server-name: githubactions.database.windows.net
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        dacpac-package: './SQLGitHub.dacpac'   
-    - uses: azure/sql-action@v1
-      name: SQL Issue Insert JSON Data Query
-      with:
-        server-name: githubactions.database.windows.net
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        sql-file: './ExportJson.sql'
-    - uses: azure/sql-action@v1
-      name: SQL Pull Request Insert JSON Data Query 
-      with:
-        server-name: githubactions.database.windows.net
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        sql-file: './Pullrequests.sql'
-    - uses: azure/sql-action@v1
-      name: SQL CommitDetails Insert JSON Data Query 
-      with:
-        server-name: githubactions.database.windows.net
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        sql-file: './CommitDetails.sql'
+          
     - uses: azure/sql-action@v1
       name: SQL BUILD Insert JSON Data Query 
       with:
-        server-name: githubactions.database.windows.net
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        sql-file: './Build.sql'
+        server-name: (localdb)\mssqllocaldb
+        connection-string: ${{ secrets.SQL_CONNECTION_STRING }}
+      #  sql-file: './Build.sql'
