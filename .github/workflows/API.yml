@@ -14,5 +14,5 @@ jobs:
       name: SQL BUILD Insert JSON Data Query 
       with:
         server-name: (localdb)\mssqllocaldb
-        connection-string: ${{ secrets.SQL_CONNECTION_STRING }}
+      #  connection-string: ${{ secrets.SQL_CONNECTION_STRING }}
       #  sql-file: './Build.sql'
