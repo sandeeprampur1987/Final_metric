@@ -15,7 +15,7 @@ jobs:
         fetch.depth: 0 
         
     - name: VSwhere path
-      run: Get-ChildItem -path "C:"
+      run: Get-ChildItem -path "D:\a\Final_metric\Final_metric"
        
     - uses: azure/sql-action@v1
       name: connect sql server
@@ -23,4 +23,4 @@ jobs:
         server-name: (localdb)\mssqllocaldb
         connection-string: ${{ secrets.SQL_CONNECTION_STRING }}
 #         sql-file: './Build.sql'
-        sql-file: 'C:\__w\Final_metric\Final_metric/Build.sql'
+        sql-file: 'D:\a\Final_metric\Final_metric/Build.sql'
