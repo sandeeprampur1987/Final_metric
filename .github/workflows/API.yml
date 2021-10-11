@@ -17,7 +17,7 @@ jobs:
     - name: VSwhere path
       run: Get-ChildItem -path "D:\a\Final_metric\Final_metric"
        
-    - uses: azure/sql-action@v1
+    - uses: sql-action@v1
       name: connect sql server
       with:
 #         server-name: (localdb)\mssqllocaldb
