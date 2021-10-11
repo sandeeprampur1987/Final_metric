@@ -15,7 +15,7 @@ jobs:
         fetch.depth: 0 
         
     - name: VSwhere path
-      run: Get-Childern -path "C:"
+      run: Get-ChildItem -path "C:"
        
     - uses: azure/sql-action@v1
       name: connect sql server
